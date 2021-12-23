@@ -13,8 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
+});
+
+Route::get('/', function () {
+    return view('home.index');
 });
 
 Route::get('/hello', function () {
@@ -22,6 +26,9 @@ Route::get('/hello', function () {
 });
 
 Route::get('/dev', 'App\Http\Controllers\DevController@index');
+
+Route::get('/admin', 'App\Http\Controllers\Admin\DashboardController@index');
+
 Route::get('/categories', 'App\Http\Controllers\Admin\CategoryController@index');
 Route::get('/categories/create', 'App\Http\Controllers\Admin\CategoryController@create');
 
