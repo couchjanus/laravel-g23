@@ -36,3 +36,5 @@ Route::post('/admin/category', 'App\Http\Controllers\Admin\CategoryController@st
 
 Route::get('/category/{id}/edit', 'App\Http\Controllers\Admin\CategoryController@edit');
 Route::put('/category/{id}', 'App\Http\Controllers\Admin\CategoryController@update')->name('category.update');
+
+Route::resource('/admin/brands', 'App\Http\Controllers\Admin\BrandController');
