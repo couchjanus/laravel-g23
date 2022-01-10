@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="shortcut icon" href="{{ asset('assets/img/favicon.ico') }}" />
   <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}" />
 
@@ -13,9 +13,15 @@
   @yield('styles')
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 
   <title>Dashboard | {{ config('app.name', 'My site') }} | @yield('title')</title>
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
+  @livewireStyles
+  <!-- Scripts -->
+  <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 
 <body class="text-blueGray-700 antialiased">
@@ -26,9 +32,19 @@
 
     @include('layouts.admin-menu')
 
-      <!-- Header -->
+     <!-- Page Heading -->
+     @if (isset($header))
+        <header class="bg-white shadow">
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                {{ $header }}
+            </div>
+        </header>
+    @endif
 
-        {{ $slot }}
+    <!-- Page Content -->
+        <main>
+            {{ $slot }}
+        </main>
     </div>
   </div>
 
@@ -58,6 +74,10 @@
     }
 
   </script>
+
+@stack('modals')
+
+@livewireScripts
 </body>
 
 </html>
