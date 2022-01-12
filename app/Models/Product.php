@@ -39,4 +39,11 @@ class Product extends Model
     {
         return $this->hasMany(Picture::class);
     }
+
+    public static function search($query)
+    {
+        return empty($query) ? static::query() :
+        static::query()->where('name', 'like', '%'.$query.'%');
+        // ->orWhere('price', 'like', '%'.$query.'%');
+    }
 }
