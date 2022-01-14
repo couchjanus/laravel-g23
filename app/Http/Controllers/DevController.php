@@ -3,20 +3,34 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 // use Illuminate\Support\Facades\View;
 use View;
 
 class DevController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $name = "Mary";
-        $title = "My Cool Application";
-        // return view('dev.index', ['title' => "My Cool Application", 'name' => $name]);
-        // return view('dev.index', compact('name', 'title'));
-        // return view('dev.index')->with(['name'=>$name, 'title'=>$title]);
-        // return view('dev.index')->withName($name)->withTitle($title);
-        return View::make('dev.index')->withName($name)->withTitle($title);
+        $request->session()->put('req-key', 'for request');
+        session(['my-key' =>'Hello session']);
+        dump($request->session()->all());
+        $val = Session::pull('my-key');
+        dump($val);
+        dump($request->session()->all());
+        Session::forget('req-key');
+        dump($request->session()->all());
+
+        session()->flash('message', 'Success message');
+        dump($request->session()->all());
+
+
+    }
+
+    public function show(){
+        $val = session('message');
+
+        dump($val);
+        dump(session()->all());
     }
 }

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use Exception;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
 
 class BrandController extends Controller
 {
@@ -37,8 +39,14 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        Brand::create($request->all());
-        return redirect()->route('brands.store');
+        try {
+            Brand::create($request->all());
+            return redirect()->route('admin.brands.create')->withSuccess('Brand successfully created');
+        }
+        catch (Exception $err) {
+            return redirect()->route('admin.brands.create')->withError('Error creat brand ');
+        }
+
     }
 
     /**

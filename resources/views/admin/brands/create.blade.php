@@ -2,6 +2,20 @@
 
     <h2 class=" pt-12">Create brand</h2>
 
+    <div>
+
+        @if (session()->has('success'))
+            <div class="alert alerrt-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session()->has('error'))
+            <div class="alert alerrt-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+    </div>
+
     <!-- Create by joker banny -->
     <div class="h-screen bg-indigo-100 flex justify-center items-center">
         <div class="w-full">
