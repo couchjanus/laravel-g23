@@ -18,10 +18,8 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Route::get('/', function () {
-    return view('home.index');
-});
-
+Route::get('/', 'App\Http\Controllers\HomeController@index');
+Route::get('/cart', 'App\Http\Controllers\HomeController@cart')->name('shopping-cart');
 
 Route::get('/dev', 'App\Http\Controllers\DevController@index');
 Route::get('/dev1', 'App\Http\Controllers\DevController@show');
