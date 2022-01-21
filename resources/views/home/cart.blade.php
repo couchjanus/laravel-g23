@@ -54,16 +54,27 @@
                         </td>
 
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <span
-                                class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{{ $product->quantity }}</span>
+                            <div x-data="{count: {{ $product->quantity }} }">
+                                <button x-on:click="count = count > 1 ? count-1 : count" class="">-</button>
+                                <span x-text="count"
+                                class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"></span>
+                                <button x-on:click="count++" class="">+</button>
+                            </div>
                         </td>
                         <td
                             class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                            <form action="{{ route('cart.remove-item', $product->id) }}" method="POST" role="form" class="w-full max-w-sm">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="inline-flex flex-shrink-0 items-center bg-white border-0 py-1 px-6">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-400" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
+                        </button>
+                            </form>
+
                         </td>
                     </tr>
                     @endforeach

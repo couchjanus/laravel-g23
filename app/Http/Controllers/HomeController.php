@@ -35,9 +35,31 @@ class HomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function addToCart(Request $request)
     {
-        //
+        $itemId = $request->productId;
+        $quantity = $request->quantity ?? 1;
+
+        if(Cart::isEmpty()){
+            $this->addProduct($request, $quantity, $itemId);
+        }else{
+            if(Cart::get($itemId)){
+                Cart::update($itemId, [
+                    'quantity' => $quantity
+                ]);
+            }else{
+                $this->addProduct($request, $quantity, $itemId);
+            }
+        }
+        return redirect()->back();
+    }
+
+    private function addProduct($request, $quantity, $itemId){
+        $product = Product::whereId($itemId)->with('brand')->with('category')->with('pictures')->firstOrFail();
+
+        $options = ['picture' => $product->pictures[0]->picture_path];
+        Cart::add($itemId, $product->name, $request->price, $quantity, $options);
+
     }
 
     /**
@@ -48,7 +70,8 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::whereId($id)->with('brand')->with('category')->with('pictures')->firstOrFail();
+        return view('home.show', compact('product'));
     }
 
     /**
@@ -80,8 +103,14 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function removeItem($id)
     {
-        //
+        Cart::remove($id);
+
+        if(Cart::isEmpty()){
+            return redirect('/');
+        }
+        return redirect()->back()->withMessage('Cart item removed from Shopping cart successfully!');
+
     }
 }

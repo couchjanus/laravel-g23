@@ -20,6 +20,11 @@ Route::get('/welcome', function () {
 
 Route::get('/', 'App\Http\Controllers\HomeController@index');
 Route::get('/cart', 'App\Http\Controllers\HomeController@cart')->name('shopping-cart');
+Route::get('/product/{id}', 'App\Http\Controllers\HomeController@show')->name('product.show');
+
+Route::post('/product/add/to/cart', 'App\Http\Controllers\HomeController@addToCart')->name('product.add-to-cart');
+
+Route::delete('/cart/item/{id}/remove', 'App\Http\Controllers\HomeController@removeItem')->name('cart.remove-item');
 
 Route::get('/dev', 'App\Http\Controllers\DevController@index');
 Route::get('/dev1', 'App\Http\Controllers\DevController@show');
