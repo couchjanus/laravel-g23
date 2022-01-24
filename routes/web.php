@@ -17,12 +17,21 @@ use Illuminate\Http\Request;
 Route::get('/welcome', function () {
     return view('welcome');
 });
+//
+Route::get('/success', function () {
+    return view('home.success');
+})->name('home.success');
 
 Route::get('/', 'App\Http\Controllers\HomeController@index');
 Route::get('/cart', 'App\Http\Controllers\HomeController@cart')->name('shopping-cart');
 Route::get('/product/{id}', 'App\Http\Controllers\HomeController@show')->name('product.show');
 
+// checkout.index
+Route::get('/checkout', 'App\Http\Controllers\HomeController@checkout')->name('checkout.index');
+
 Route::post('/product/add/to/cart', 'App\Http\Controllers\HomeController@addToCart')->name('product.add-to-cart');
+//
+Route::post('/order/place', 'App\Http\Controllers\OrderController@store')->name('order.place');
 
 Route::delete('/cart/item/{id}/remove', 'App\Http\Controllers\HomeController@removeItem')->name('cart.remove-item');
 

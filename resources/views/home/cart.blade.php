@@ -80,7 +80,18 @@
                     @endforeach
                     </tbody>
                 </table>
+                <header>
+                    <h2>Tour Total:</h2>
+                    <strong>{{ \Cart::getSubTotal() }}</strong>
+                </header>
+                @if (Route::has('login'))
+                  @auth
+                    <a href="{{ route('checkout.index') }}" class="bg-indigo-600 px-5 py-2 text-white rorder rounded inline-flex">Checkout</a>
+                  @else
+                  <a href="{{ route('login') }}" class="bg-red-600 px-5 py-2 text-white rorder rounded inline-flex">Login please</a>
+                  @endauth
                 @endif
+              @endif
             </div>
         </div>
     </div>
