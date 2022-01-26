@@ -86,16 +86,29 @@
               class="fas fa-tv opacity-75 mr-2 text-sm"></i>
             Dashboard</a>
         </li>
+        @can('category_list')
         <li class="items-center">
           <a class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
             href="{{ route('admin.categories.index') }}"><i class="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>
             Categories</a>
         </li>
+        @endcan
+        @can('product-list')
+        <li class="items-center">
+            <a class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+              href="{{ route('admin.products.index') }}"><i class="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>
+              Products</a>
+          </li>
+        @endcan
+        @can('role-list')
         <li class="items-center">
           <a class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-            href="#/profile"><i class="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>
-            Profile Page</a>
+            href="{{ route('admin.roles.index') }}"><i class="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>
+            Permissions</a>
         </li>
+        @endcan
+
+        @can('user_list')
         <li class="items-center">
           <a class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block" href="#/login"><i
               class="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>
@@ -111,6 +124,7 @@
               class="fas fa-tools text-blueGray-300 mr-2 text-sm"></i>
             Settings (soon)</a>
         </li>
+        @endcan
       </ul>
       <hr class="my-4 md:min-w-full" />
       <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">

@@ -52,6 +52,7 @@ Route::middleware(['auth:sanctum'])
         Route::resource('products', 'ProductController');
         Route::resource('brands', 'BrandController');
         Route::resource('categories', 'CategoryController');
+        Route::resource('roles', 'RoleController');
         Route::get('/', 'DashboardController');
     });
 
